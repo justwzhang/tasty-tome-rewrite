@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: tastytome-postgres
+    environment:
+      POSTGRES_USER: tastytome
+      POSTGRES_PASSWORD: yourSecurePassword123!
+      POSTGRES_DB: tastytome
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tastytome"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tastytome-network
+
+volumes:
+  postgres_data:
+
+networks:
+  tastytome-network:
+    driver: bridge
