@@ -28,11 +28,18 @@
 	</scm>
 	<properties>
 		<java.version>25</java.version>
+		<DB_DATASOURCE>jdbc:postgresql://localhost:5432/tastytome</DB_DATASOURCE>
+		<DB_USER>tastytome</DB_USER>
+		<DB_PASS>yourSecurePassword123!</DB_PASS>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-liquibase</artifactId>
 		</dependency>
 
 		<dependency>
@@ -43,7 +50,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>4.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,15 +60,96 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq-codegen-maven</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<plugins>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+			<!-- Liquibase Plugin Configuration -->
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<configuration>
+					<changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
+					<driver>org.postgresql.Driver</driver>
+					<url>${DB_DATASOURCE}</url>
+					<username>${DB_USER}</username>
+					<password>${DB_PASS}</password>
+					<defaultSchemaName>public</defaultSchemaName>
+				</configuration>
 			</plugin>
-		</plugins>
-	</build>
+
+			<!-- JOOQ Code Generation Plugin -->
+			<plugin>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+				<configuration>
+					<jdbc>
+						<driver>org.postgresql.Driver</driver>
+						<url>${DB_DATASOURCE}</url>
+						<user>${DB_USER}</user>
+						<password>${DB_PASS}</password>
+					</jdbc>
+					<generator>
+						<database>
+							<name>org.jooq.meta.postgres.PostgresDatabase</name>
+							<includes>.*</includes>
+							<excludes></excludes>
+							<inputSchema>public</inputSchema>
+						</database>
+						<generate>
+							<pojos>true</pojos>
+							<pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+							<javaTimeTypes>true</javaTimeTypes>
+							<fluentSetters>true</fluentSetters>
+						</generate>
+						<target>
+							<packageName>com.justwzhang.tastytome.jooq.generated</packageName>
+							<directory>src/main/java</directory>
+						</target>
+					</generator>
+				</configuration>
+				<executions>
+					<execution>
+						<id>jooq-codegen</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+        </plugins>
+    </build>
 
 </project>

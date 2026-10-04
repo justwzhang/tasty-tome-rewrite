@@ -11,4 +11,8 @@ fi
 
 export MAVEN_OPTS="${MAVEN_OPTS} -Dspring.devtools.restart.enabled=true -Dspring.devtools.restart.poll-interval=1000"
 
+echo "============================================"
+echo "Starting TastyTome Spring Boot Application..."
+echo "============================================"
+
 ./mvnw spring-boot:run
