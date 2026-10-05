@@ -5,14 +5,18 @@ package com.justwzhang.tastytome.jooq.generated;
 
 
 import com.justwzhang.tastytome.jooq.generated.tables.Databasechangeloglock;
+import com.justwzhang.tastytome.jooq.generated.tables.LkPaperType;
 import com.justwzhang.tastytome.jooq.generated.tables.User;
 import com.justwzhang.tastytome.jooq.generated.tables.records.DatabasechangeloglockRecord;
+import com.justwzhang.tastytome.jooq.generated.tables.records.LkPaperTypeRecord;
 import com.justwzhang.tastytome.jooq.generated.tables.records.UserRecord;
 
+import org.jooq.ForeignKey;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
+import org.jooq.impl.QOM.ForeignKeyRule;
 
 
 /**
@@ -27,6 +31,14 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<DatabasechangeloglockRecord> DATABASECHANGELOGLOCK_PKEY = Internal.createUniqueKey(Databasechangeloglock.DATABASECHANGELOGLOCK, DSL.name("databasechangeloglock_pkey"), new TableField[] { Databasechangeloglock.DATABASECHANGELOGLOCK.ID }, true);
+    public static final UniqueKey<LkPaperTypeRecord> LK_PAPER_TYPE_PKEY = Internal.createUniqueKey(LkPaperType.LK_PAPER_TYPE, DSL.name("lk_paper_type_pkey"), new TableField[] { LkPaperType.LK_PAPER_TYPE.PAPER_TYPE_LK }, true);
     public static final UniqueKey<UserRecord> USER_EMAIL_KEY = Internal.createUniqueKey(User.USER, DSL.name("user_email_key"), new TableField[] { User.USER.EMAIL }, true);
     public static final UniqueKey<UserRecord> USER_PKEY = Internal.createUniqueKey(User.USER, DSL.name("user_pkey"), new TableField[] { User.USER.USER_ID }, true);
+
+    // -------------------------------------------------------------------------
+    // FOREIGN KEY definitions
+    // -------------------------------------------------------------------------
+
+    public static final ForeignKey<UserRecord, UserRecord> USER__USER_CREATED_BY_ID_FKEY = Internal.createForeignKey(User.USER, DSL.name("user_created_by_id_fkey"), new TableField[] { User.USER.CREATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<UserRecord, UserRecord> USER__USER_UPDATED_BY_ID_FKEY = Internal.createForeignKey(User.USER, DSL.name("user_updated_by_id_fkey"), new TableField[] { User.USER.UPDATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
 }

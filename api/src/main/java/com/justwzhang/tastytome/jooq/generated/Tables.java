@@ -6,6 +6,7 @@ package com.justwzhang.tastytome.jooq.generated;
 
 import com.justwzhang.tastytome.jooq.generated.tables.Databasechangelog;
 import com.justwzhang.tastytome.jooq.generated.tables.Databasechangeloglock;
+import com.justwzhang.tastytome.jooq.generated.tables.LkPaperType;
 import com.justwzhang.tastytome.jooq.generated.tables.User;
 
 
@@ -24,6 +25,11 @@ public class Tables {
      * The table <code>public.databasechangeloglock</code>.
      */
     public static final Databasechangeloglock DATABASECHANGELOGLOCK = Databasechangeloglock.DATABASECHANGELOGLOCK;
+
+    /**
+     * The table <code>public.lk_paper_type</code>.
+     */
+    public static final LkPaperType LK_PAPER_TYPE = LkPaperType.LK_PAPER_TYPE;
 
     /**
      * The table <code>public.user</code>.

@@ -6,17 +6,23 @@ package com.justwzhang.tastytome.jooq.generated.tables;
 
 import com.justwzhang.tastytome.jooq.generated.Keys;
 import com.justwzhang.tastytome.jooq.generated.Public;
+import com.justwzhang.tastytome.jooq.generated.tables.User.UserPath;
 import com.justwzhang.tastytome.jooq.generated.tables.records.UserRecord;
 
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 import org.jooq.Condition;
 import org.jooq.Field;
+import org.jooq.ForeignKey;
+import org.jooq.InverseForeignKey;
 import org.jooq.Name;
+import org.jooq.Path;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
+import org.jooq.Record;
 import org.jooq.SQL;
 import org.jooq.Schema;
 import org.jooq.Stringly;
@@ -72,6 +78,26 @@ public class User extends TableImpl<UserRecord> {
      */
     public final TableField<UserRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(100), this, "");
 
+    /**
+     * The column <code>public.user.create_date</code>.
+     */
+    public final TableField<UserRecord, OffsetDateTime> CREATE_DATE = createField(DSL.name("create_date"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+
+    /**
+     * The column <code>public.user.update_date</code>.
+     */
+    public final TableField<UserRecord, OffsetDateTime> UPDATE_DATE = createField(DSL.name("update_date"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+
+    /**
+     * The column <code>public.user.created_by_id</code>.
+     */
+    public final TableField<UserRecord, Long> CREATED_BY_ID = createField(DSL.name("created_by_id"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>public.user.updated_by_id</code>.
+     */
+    public final TableField<UserRecord, Long> UPDATED_BY_ID = createField(DSL.name("updated_by_id"), SQLDataType.BIGINT, this, "");
+
     private User(Name alias, Table<UserRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }
@@ -101,6 +127,39 @@ public class User extends TableImpl<UserRecord> {
         this(DSL.name("user"), null);
     }
 
+    public <O extends Record> User(Table<O> path, ForeignKey<O, UserRecord> childPath, InverseForeignKey<O, UserRecord> parentPath) {
+        super(path, childPath, parentPath, USER);
+    }
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    public static class UserPath extends User implements Path<UserRecord> {
+
+        private static final long serialVersionUID = 1L;
+        public <O extends Record> UserPath(Table<O> path, ForeignKey<O, UserRecord> childPath, InverseForeignKey<O, UserRecord> parentPath) {
+            super(path, childPath, parentPath);
+        }
+        private UserPath(Name alias, Table<UserRecord> aliased) {
+            super(alias, aliased);
+        }
+
+        @Override
+        public UserPath as(String alias) {
+            return new UserPath(DSL.name(alias), this);
+        }
+
+        @Override
+        public UserPath as(Name alias) {
+            return new UserPath(alias, this);
+        }
+
+        @Override
+        public UserPath as(Table<?> alias) {
+            return new UserPath(alias.getQualifiedName(), this);
+        }
+    }
+
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
@@ -114,6 +173,37 @@ public class User extends TableImpl<UserRecord> {
     @Override
     public List<UniqueKey<UserRecord>> getUniqueKeys() {
         return Arrays.asList(Keys.USER_EMAIL_KEY);
+    }
+
+    @Override
+    public List<ForeignKey<UserRecord, ?>> getReferences() {
+        return Arrays.asList(Keys.USER__USER_CREATED_BY_ID_FKEY, Keys.USER__USER_UPDATED_BY_ID_FKEY);
+    }
+
+    private transient UserPath _userCreatedByIdFkey;
+
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>user_created_by_id_fkey</code> key.
+     */
+    public UserPath userCreatedByIdFkey() {
+        if (_userCreatedByIdFkey == null)
+            _userCreatedByIdFkey = new UserPath(this, Keys.USER__USER_CREATED_BY_ID_FKEY, null);
+
+        return _userCreatedByIdFkey;
+    }
+
+    private transient UserPath _userUpdatedByIdFkey;
+
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>user_updated_by_id_fkey</code> key.
+     */
+    public UserPath userUpdatedByIdFkey() {
+        if (_userUpdatedByIdFkey == null)
+            _userUpdatedByIdFkey = new UserPath(this, Keys.USER__USER_UPDATED_BY_ID_FKEY, null);
+
+        return _userUpdatedByIdFkey;
     }
 
     @Override

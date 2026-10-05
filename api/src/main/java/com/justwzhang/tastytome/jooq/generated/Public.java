@@ -6,6 +6,7 @@ package com.justwzhang.tastytome.jooq.generated;
 
 import com.justwzhang.tastytome.jooq.generated.tables.Databasechangelog;
 import com.justwzhang.tastytome.jooq.generated.tables.Databasechangeloglock;
+import com.justwzhang.tastytome.jooq.generated.tables.LkPaperType;
 import com.justwzhang.tastytome.jooq.generated.tables.User;
 
 import java.util.Arrays;
@@ -41,6 +42,11 @@ public class Public extends SchemaImpl {
     public final Databasechangeloglock DATABASECHANGELOGLOCK = Databasechangeloglock.DATABASECHANGELOGLOCK;
 
     /**
+     * The table <code>public.lk_paper_type</code>.
+     */
+    public final LkPaperType LK_PAPER_TYPE = LkPaperType.LK_PAPER_TYPE;
+
+    /**
      * The table <code>public.user</code>.
      */
     public final User USER = User.USER;
@@ -63,6 +69,7 @@ public class Public extends SchemaImpl {
         return Arrays.asList(
             Databasechangelog.DATABASECHANGELOG,
             Databasechangeloglock.DATABASECHANGELOGLOCK,
+            LkPaperType.LK_PAPER_TYPE,
             User.USER
         );
     }

@@ -6,6 +6,8 @@ package com.justwzhang.tastytome.jooq.generated.tables.records;
 
 import com.justwzhang.tastytome.jooq.generated.tables.User;
 
+import java.time.OffsetDateTime;
+
 import org.jooq.Record1;
 import org.jooq.impl.UpdatableRecordImpl;
 
@@ -78,6 +80,66 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
         return (String) get(3);
     }
 
+    /**
+     * Setter for <code>public.user.create_date</code>.
+     */
+    public UserRecord setCreateDate(OffsetDateTime value) {
+        set(4, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.user.create_date</code>.
+     */
+    public OffsetDateTime getCreateDate() {
+        return (OffsetDateTime) get(4);
+    }
+
+    /**
+     * Setter for <code>public.user.update_date</code>.
+     */
+    public UserRecord setUpdateDate(OffsetDateTime value) {
+        set(5, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.user.update_date</code>.
+     */
+    public OffsetDateTime getUpdateDate() {
+        return (OffsetDateTime) get(5);
+    }
+
+    /**
+     * Setter for <code>public.user.created_by_id</code>.
+     */
+    public UserRecord setCreatedById(Long value) {
+        set(6, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.user.created_by_id</code>.
+     */
+    public Long getCreatedById() {
+        return (Long) get(6);
+    }
+
+    /**
+     * Setter for <code>public.user.updated_by_id</code>.
+     */
+    public UserRecord setUpdatedById(Long value) {
+        set(7, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.user.updated_by_id</code>.
+     */
+    public Long getUpdatedById() {
+        return (Long) get(7);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -101,13 +163,17 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
     /**
      * Create a detached, initialised UserRecord
      */
-    public UserRecord(Long userId, String firstName, String lastName, String email) {
+    public UserRecord(Long userId, String firstName, String lastName, String email, OffsetDateTime createDate, OffsetDateTime updateDate, Long createdById, Long updatedById) {
         super(User.USER);
 
         setUserId(userId);
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
+        setCreateDate(createDate);
+        setUpdateDate(updateDate);
+        setCreatedById(createdById);
+        setUpdatedById(updatedById);
         resetTouchedOnNotNull();
     }
 
@@ -122,6 +188,10 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
             setFirstName(value.getFirstName());
             setLastName(value.getLastName());
             setEmail(value.getEmail());
+            setCreateDate(value.getCreateDate());
+            setUpdateDate(value.getUpdateDate());
+            setCreatedById(value.getCreatedById());
+            setUpdatedById(value.getUpdatedById());
             resetTouchedOnNotNull();
         }
     }

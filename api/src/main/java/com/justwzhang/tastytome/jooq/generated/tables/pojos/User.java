@@ -5,6 +5,7 @@ package com.justwzhang.tastytome.jooq.generated.tables.pojos;
 
 
 import java.io.Serializable;
+import java.time.OffsetDateTime;
 
 
 /**
@@ -19,6 +20,10 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+    private OffsetDateTime createDate;
+    private OffsetDateTime updateDate;
+    private Long createdById;
+    private Long updatedById;
 
     public User() {}
 
@@ -27,18 +32,30 @@ public class User implements Serializable {
         this.firstName = value.firstName;
         this.lastName = value.lastName;
         this.email = value.email;
+        this.createDate = value.createDate;
+        this.updateDate = value.updateDate;
+        this.createdById = value.createdById;
+        this.updatedById = value.updatedById;
     }
 
     public User(
         Long userId,
         String firstName,
         String lastName,
-        String email
+        String email,
+        OffsetDateTime createDate,
+        OffsetDateTime updateDate,
+        Long createdById,
+        Long updatedById
     ) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.createdById = createdById;
+        this.updatedById = updatedById;
     }
 
     /**
@@ -101,6 +118,66 @@ public class User implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.user.create_date</code>.
+     */
+    public OffsetDateTime getCreateDate() {
+        return this.createDate;
+    }
+
+    /**
+     * Setter for <code>public.user.create_date</code>.
+     */
+    public User setCreateDate(OffsetDateTime createDate) {
+        this.createDate = createDate;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.user.update_date</code>.
+     */
+    public OffsetDateTime getUpdateDate() {
+        return this.updateDate;
+    }
+
+    /**
+     * Setter for <code>public.user.update_date</code>.
+     */
+    public User setUpdateDate(OffsetDateTime updateDate) {
+        this.updateDate = updateDate;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.user.created_by_id</code>.
+     */
+    public Long getCreatedById() {
+        return this.createdById;
+    }
+
+    /**
+     * Setter for <code>public.user.created_by_id</code>.
+     */
+    public User setCreatedById(Long createdById) {
+        this.createdById = createdById;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.user.updated_by_id</code>.
+     */
+    public Long getUpdatedById() {
+        return this.updatedById;
+    }
+
+    /**
+     * Setter for <code>public.user.updated_by_id</code>.
+     */
+    public User setUpdatedById(Long updatedById) {
+        this.updatedById = updatedById;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -134,6 +211,30 @@ public class User implements Serializable {
         }
         else if (!this.email.equals(other.email))
             return false;
+        if (this.createDate == null) {
+            if (other.createDate != null)
+                return false;
+        }
+        else if (!this.createDate.equals(other.createDate))
+            return false;
+        if (this.updateDate == null) {
+            if (other.updateDate != null)
+                return false;
+        }
+        else if (!this.updateDate.equals(other.updateDate))
+            return false;
+        if (this.createdById == null) {
+            if (other.createdById != null)
+                return false;
+        }
+        else if (!this.createdById.equals(other.createdById))
+            return false;
+        if (this.updatedById == null) {
+            if (other.updatedById != null)
+                return false;
+        }
+        else if (!this.updatedById.equals(other.updatedById))
+            return false;
         return true;
     }
 
@@ -145,6 +246,10 @@ public class User implements Serializable {
         result = prime * result + ((this.firstName == null) ? 0 : this.firstName.hashCode());
         result = prime * result + ((this.lastName == null) ? 0 : this.lastName.hashCode());
         result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
+        result = prime * result + ((this.createDate == null) ? 0 : this.createDate.hashCode());
+        result = prime * result + ((this.updateDate == null) ? 0 : this.updateDate.hashCode());
+        result = prime * result + ((this.createdById == null) ? 0 : this.createdById.hashCode());
+        result = prime * result + ((this.updatedById == null) ? 0 : this.updatedById.hashCode());
         return result;
     }
 
@@ -156,6 +261,10 @@ public class User implements Serializable {
         sb.append(", ").append(firstName);
         sb.append(", ").append(lastName);
         sb.append(", ").append(email);
+        sb.append(", ").append(createDate);
+        sb.append(", ").append(updateDate);
+        sb.append(", ").append(createdById);
+        sb.append(", ").append(updatedById);
 
         sb.append(")");
         return sb.toString();
