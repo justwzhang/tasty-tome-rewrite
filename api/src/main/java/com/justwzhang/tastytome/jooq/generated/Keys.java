@@ -5,10 +5,20 @@ package com.justwzhang.tastytome.jooq.generated;
 
 
 import com.justwzhang.tastytome.jooq.generated.tables.Databasechangeloglock;
+import com.justwzhang.tastytome.jooq.generated.tables.Ingredient;
 import com.justwzhang.tastytome.jooq.generated.tables.LkPaperType;
+import com.justwzhang.tastytome.jooq.generated.tables.LkRecipeType;
+import com.justwzhang.tastytome.jooq.generated.tables.Recipe;
+import com.justwzhang.tastytome.jooq.generated.tables.RecipeIngredient;
+import com.justwzhang.tastytome.jooq.generated.tables.RecipeStep;
 import com.justwzhang.tastytome.jooq.generated.tables.User;
 import com.justwzhang.tastytome.jooq.generated.tables.records.DatabasechangeloglockRecord;
+import com.justwzhang.tastytome.jooq.generated.tables.records.IngredientRecord;
 import com.justwzhang.tastytome.jooq.generated.tables.records.LkPaperTypeRecord;
+import com.justwzhang.tastytome.jooq.generated.tables.records.LkRecipeTypeRecord;
+import com.justwzhang.tastytome.jooq.generated.tables.records.RecipeIngredientRecord;
+import com.justwzhang.tastytome.jooq.generated.tables.records.RecipeRecord;
+import com.justwzhang.tastytome.jooq.generated.tables.records.RecipeStepRecord;
 import com.justwzhang.tastytome.jooq.generated.tables.records.UserRecord;
 
 import org.jooq.ForeignKey;
@@ -31,7 +41,12 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<DatabasechangeloglockRecord> DATABASECHANGELOGLOCK_PKEY = Internal.createUniqueKey(Databasechangeloglock.DATABASECHANGELOGLOCK, DSL.name("databasechangeloglock_pkey"), new TableField[] { Databasechangeloglock.DATABASECHANGELOGLOCK.ID }, true);
+    public static final UniqueKey<IngredientRecord> INGREDIENT_PKEY = Internal.createUniqueKey(Ingredient.INGREDIENT, DSL.name("ingredient_pkey"), new TableField[] { Ingredient.INGREDIENT.INGREDIENT_ }, true);
     public static final UniqueKey<LkPaperTypeRecord> LK_PAPER_TYPE_PKEY = Internal.createUniqueKey(LkPaperType.LK_PAPER_TYPE, DSL.name("lk_paper_type_pkey"), new TableField[] { LkPaperType.LK_PAPER_TYPE.PAPER_TYPE_LK }, true);
+    public static final UniqueKey<LkRecipeTypeRecord> LK_RECIPE_TYPE_PKEY = Internal.createUniqueKey(LkRecipeType.LK_RECIPE_TYPE, DSL.name("lk_recipe_type_pkey"), new TableField[] { LkRecipeType.LK_RECIPE_TYPE.RECIPE_TYPE_LK }, true);
+    public static final UniqueKey<RecipeRecord> RECIPE_PKEY = Internal.createUniqueKey(Recipe.RECIPE, DSL.name("recipe_pkey"), new TableField[] { Recipe.RECIPE.RECIPE_ID }, true);
+    public static final UniqueKey<RecipeIngredientRecord> RECIPE_INGREDIENT_PKEY = Internal.createUniqueKey(RecipeIngredient.RECIPE_INGREDIENT, DSL.name("recipe_ingredient_pkey"), new TableField[] { RecipeIngredient.RECIPE_INGREDIENT.RECIPE_INGREDIENT_ID }, true);
+    public static final UniqueKey<RecipeStepRecord> RECIPE_STEP_PKEY = Internal.createUniqueKey(RecipeStep.RECIPE_STEP, DSL.name("recipe_step_pkey"), new TableField[] { RecipeStep.RECIPE_STEP.RECIPE_STEP_ID }, true);
     public static final UniqueKey<UserRecord> USER_EMAIL_KEY = Internal.createUniqueKey(User.USER, DSL.name("user_email_key"), new TableField[] { User.USER.EMAIL }, true);
     public static final UniqueKey<UserRecord> USER_PKEY = Internal.createUniqueKey(User.USER, DSL.name("user_pkey"), new TableField[] { User.USER.USER_ID }, true);
 
@@ -39,6 +54,22 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<IngredientRecord, UserRecord> INGREDIENT__INGREDIENT_CREATED_BY_ID_FKEY = Internal.createForeignKey(Ingredient.INGREDIENT, DSL.name("ingredient_created_by_id_fkey"), new TableField[] { Ingredient.INGREDIENT.CREATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<IngredientRecord, UserRecord> INGREDIENT__INGREDIENT_UPDATED_BY_ID_FKEY = Internal.createForeignKey(Ingredient.INGREDIENT, DSL.name("ingredient_updated_by_id_fkey"), new TableField[] { Ingredient.INGREDIENT.UPDATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<LkPaperTypeRecord, UserRecord> LK_PAPER_TYPE__LK_PAPER_TYPE_CREATED_BY_ID_FKEY = Internal.createForeignKey(LkPaperType.LK_PAPER_TYPE, DSL.name("lk_paper_type_created_by_id_fkey"), new TableField[] { LkPaperType.LK_PAPER_TYPE.CREATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<LkPaperTypeRecord, UserRecord> LK_PAPER_TYPE__LK_PAPER_TYPE_UPDATED_BY_ID_FKEY = Internal.createForeignKey(LkPaperType.LK_PAPER_TYPE, DSL.name("lk_paper_type_updated_by_id_fkey"), new TableField[] { LkPaperType.LK_PAPER_TYPE.UPDATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<LkRecipeTypeRecord, UserRecord> LK_RECIPE_TYPE__LK_RECIPE_TYPE_CREATED_BY_ID_FKEY = Internal.createForeignKey(LkRecipeType.LK_RECIPE_TYPE, DSL.name("lk_recipe_type_created_by_id_fkey"), new TableField[] { LkRecipeType.LK_RECIPE_TYPE.CREATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<LkRecipeTypeRecord, UserRecord> LK_RECIPE_TYPE__LK_RECIPE_TYPE_UPDATED_BY_ID_FKEY = Internal.createForeignKey(LkRecipeType.LK_RECIPE_TYPE, DSL.name("lk_recipe_type_updated_by_id_fkey"), new TableField[] { LkRecipeType.LK_RECIPE_TYPE.UPDATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeRecord, UserRecord> RECIPE__RECIPE_CREATED_BY_ID_FKEY = Internal.createForeignKey(Recipe.RECIPE, DSL.name("recipe_created_by_id_fkey"), new TableField[] { Recipe.RECIPE.CREATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeRecord, LkRecipeTypeRecord> RECIPE__RECIPE_RECIPE_TYPE_LK_FKEY = Internal.createForeignKey(Recipe.RECIPE, DSL.name("recipe_recipe_type_lk_fkey"), new TableField[] { Recipe.RECIPE.RECIPE_TYPE_LK }, Keys.LK_RECIPE_TYPE_PKEY, new TableField[] { LkRecipeType.LK_RECIPE_TYPE.RECIPE_TYPE_LK }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeRecord, UserRecord> RECIPE__RECIPE_UPDATED_BY_ID_FKEY = Internal.createForeignKey(Recipe.RECIPE, DSL.name("recipe_updated_by_id_fkey"), new TableField[] { Recipe.RECIPE.UPDATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeIngredientRecord, UserRecord> RECIPE_INGREDIENT__RECIPE_INGREDIENT_CREATED_BY_ID_FKEY = Internal.createForeignKey(RecipeIngredient.RECIPE_INGREDIENT, DSL.name("recipe_ingredient_created_by_id_fkey"), new TableField[] { RecipeIngredient.RECIPE_INGREDIENT.CREATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeIngredientRecord, IngredientRecord> RECIPE_INGREDIENT__RECIPE_INGREDIENT_INGREDIENT_FKEY = Internal.createForeignKey(RecipeIngredient.RECIPE_INGREDIENT, DSL.name("recipe_ingredient_ingredient_fkey"), new TableField[] { RecipeIngredient.RECIPE_INGREDIENT.INGREDIENT }, Keys.INGREDIENT_PKEY, new TableField[] { Ingredient.INGREDIENT.INGREDIENT_ }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeIngredientRecord, RecipeRecord> RECIPE_INGREDIENT__RECIPE_INGREDIENT_RECIPE_ID_FKEY = Internal.createForeignKey(RecipeIngredient.RECIPE_INGREDIENT, DSL.name("recipe_ingredient_recipe_id_fkey"), new TableField[] { RecipeIngredient.RECIPE_INGREDIENT.RECIPE_ID }, Keys.RECIPE_PKEY, new TableField[] { Recipe.RECIPE.RECIPE_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeIngredientRecord, UserRecord> RECIPE_INGREDIENT__RECIPE_INGREDIENT_UPDATED_BY_ID_FKEY = Internal.createForeignKey(RecipeIngredient.RECIPE_INGREDIENT, DSL.name("recipe_ingredient_updated_by_id_fkey"), new TableField[] { RecipeIngredient.RECIPE_INGREDIENT.UPDATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeStepRecord, UserRecord> RECIPE_STEP__RECIPE_STEP_CREATED_BY_ID_FKEY = Internal.createForeignKey(RecipeStep.RECIPE_STEP, DSL.name("recipe_step_created_by_id_fkey"), new TableField[] { RecipeStep.RECIPE_STEP.CREATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeStepRecord, RecipeRecord> RECIPE_STEP__RECIPE_STEP_RECIPE_ID_FKEY = Internal.createForeignKey(RecipeStep.RECIPE_STEP, DSL.name("recipe_step_recipe_id_fkey"), new TableField[] { RecipeStep.RECIPE_STEP.RECIPE_ID }, Keys.RECIPE_PKEY, new TableField[] { Recipe.RECIPE.RECIPE_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
+    public static final ForeignKey<RecipeStepRecord, UserRecord> RECIPE_STEP__RECIPE_STEP_UPDATED_BY_ID_FKEY = Internal.createForeignKey(RecipeStep.RECIPE_STEP, DSL.name("recipe_step_updated_by_id_fkey"), new TableField[] { RecipeStep.RECIPE_STEP.UPDATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
     public static final ForeignKey<UserRecord, UserRecord> USER__USER_CREATED_BY_ID_FKEY = Internal.createForeignKey(User.USER, DSL.name("user_created_by_id_fkey"), new TableField[] { User.USER.CREATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
     public static final ForeignKey<UserRecord, UserRecord> USER__USER_UPDATED_BY_ID_FKEY = Internal.createForeignKey(User.USER, DSL.name("user_updated_by_id_fkey"), new TableField[] { User.USER.UPDATED_BY_ID }, Keys.USER_PKEY, new TableField[] { User.USER.USER_ID }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
 }

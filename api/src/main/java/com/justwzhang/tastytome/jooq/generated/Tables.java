@@ -6,7 +6,12 @@ package com.justwzhang.tastytome.jooq.generated;
 
 import com.justwzhang.tastytome.jooq.generated.tables.Databasechangelog;
 import com.justwzhang.tastytome.jooq.generated.tables.Databasechangeloglock;
+import com.justwzhang.tastytome.jooq.generated.tables.Ingredient;
 import com.justwzhang.tastytome.jooq.generated.tables.LkPaperType;
+import com.justwzhang.tastytome.jooq.generated.tables.LkRecipeType;
+import com.justwzhang.tastytome.jooq.generated.tables.Recipe;
+import com.justwzhang.tastytome.jooq.generated.tables.RecipeIngredient;
+import com.justwzhang.tastytome.jooq.generated.tables.RecipeStep;
 import com.justwzhang.tastytome.jooq.generated.tables.User;
 
 
@@ -27,9 +32,34 @@ public class Tables {
     public static final Databasechangeloglock DATABASECHANGELOGLOCK = Databasechangeloglock.DATABASECHANGELOGLOCK;
 
     /**
+     * The table <code>public.ingredient</code>.
+     */
+    public static final Ingredient INGREDIENT = Ingredient.INGREDIENT;
+
+    /**
      * The table <code>public.lk_paper_type</code>.
      */
     public static final LkPaperType LK_PAPER_TYPE = LkPaperType.LK_PAPER_TYPE;
+
+    /**
+     * The table <code>public.lk_recipe_type</code>.
+     */
+    public static final LkRecipeType LK_RECIPE_TYPE = LkRecipeType.LK_RECIPE_TYPE;
+
+    /**
+     * The table <code>public.recipe</code>.
+     */
+    public static final Recipe RECIPE = Recipe.RECIPE;
+
+    /**
+     * The table <code>public.recipe_ingredient</code>.
+     */
+    public static final RecipeIngredient RECIPE_INGREDIENT = RecipeIngredient.RECIPE_INGREDIENT;
+
+    /**
+     * The table <code>public.recipe_step</code>.
+     */
+    public static final RecipeStep RECIPE_STEP = RecipeStep.RECIPE_STEP;
 
     /**
      * The table <code>public.user</code>.

@@ -6,6 +6,12 @@ package com.justwzhang.tastytome.jooq.generated.tables;
 
 import com.justwzhang.tastytome.jooq.generated.Keys;
 import com.justwzhang.tastytome.jooq.generated.Public;
+import com.justwzhang.tastytome.jooq.generated.tables.Ingredient.IngredientPath;
+import com.justwzhang.tastytome.jooq.generated.tables.LkPaperType.LkPaperTypePath;
+import com.justwzhang.tastytome.jooq.generated.tables.LkRecipeType.LkRecipeTypePath;
+import com.justwzhang.tastytome.jooq.generated.tables.Recipe.RecipePath;
+import com.justwzhang.tastytome.jooq.generated.tables.RecipeIngredient.RecipeIngredientPath;
+import com.justwzhang.tastytome.jooq.generated.tables.RecipeStep.RecipeStepPath;
 import com.justwzhang.tastytome.jooq.generated.tables.User.UserPath;
 import com.justwzhang.tastytome.jooq.generated.tables.records.UserRecord;
 
@@ -204,6 +210,168 @@ public class User extends TableImpl<UserRecord> {
             _userUpdatedByIdFkey = new UserPath(this, Keys.USER__USER_UPDATED_BY_ID_FKEY, null);
 
         return _userUpdatedByIdFkey;
+    }
+
+    private transient IngredientPath _ingredientCreatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.ingredient</code>
+     * table, via the <code>ingredient_created_by_id_fkey</code> key
+     */
+    public IngredientPath ingredientCreatedByIdFkey() {
+        if (_ingredientCreatedByIdFkey == null)
+            _ingredientCreatedByIdFkey = new IngredientPath(this, null, Keys.INGREDIENT__INGREDIENT_CREATED_BY_ID_FKEY.getInverseKey());
+
+        return _ingredientCreatedByIdFkey;
+    }
+
+    private transient IngredientPath _ingredientUpdatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.ingredient</code>
+     * table, via the <code>ingredient_updated_by_id_fkey</code> key
+     */
+    public IngredientPath ingredientUpdatedByIdFkey() {
+        if (_ingredientUpdatedByIdFkey == null)
+            _ingredientUpdatedByIdFkey = new IngredientPath(this, null, Keys.INGREDIENT__INGREDIENT_UPDATED_BY_ID_FKEY.getInverseKey());
+
+        return _ingredientUpdatedByIdFkey;
+    }
+
+    private transient LkPaperTypePath _lkPaperTypeCreatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.lk_paper_type</code> table, via the
+     * <code>lk_paper_type_created_by_id_fkey</code> key
+     */
+    public LkPaperTypePath lkPaperTypeCreatedByIdFkey() {
+        if (_lkPaperTypeCreatedByIdFkey == null)
+            _lkPaperTypeCreatedByIdFkey = new LkPaperTypePath(this, null, Keys.LK_PAPER_TYPE__LK_PAPER_TYPE_CREATED_BY_ID_FKEY.getInverseKey());
+
+        return _lkPaperTypeCreatedByIdFkey;
+    }
+
+    private transient LkPaperTypePath _lkPaperTypeUpdatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.lk_paper_type</code> table, via the
+     * <code>lk_paper_type_updated_by_id_fkey</code> key
+     */
+    public LkPaperTypePath lkPaperTypeUpdatedByIdFkey() {
+        if (_lkPaperTypeUpdatedByIdFkey == null)
+            _lkPaperTypeUpdatedByIdFkey = new LkPaperTypePath(this, null, Keys.LK_PAPER_TYPE__LK_PAPER_TYPE_UPDATED_BY_ID_FKEY.getInverseKey());
+
+        return _lkPaperTypeUpdatedByIdFkey;
+    }
+
+    private transient LkRecipeTypePath _lkRecipeTypeCreatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.lk_recipe_type</code> table, via the
+     * <code>lk_recipe_type_created_by_id_fkey</code> key
+     */
+    public LkRecipeTypePath lkRecipeTypeCreatedByIdFkey() {
+        if (_lkRecipeTypeCreatedByIdFkey == null)
+            _lkRecipeTypeCreatedByIdFkey = new LkRecipeTypePath(this, null, Keys.LK_RECIPE_TYPE__LK_RECIPE_TYPE_CREATED_BY_ID_FKEY.getInverseKey());
+
+        return _lkRecipeTypeCreatedByIdFkey;
+    }
+
+    private transient LkRecipeTypePath _lkRecipeTypeUpdatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.lk_recipe_type</code> table, via the
+     * <code>lk_recipe_type_updated_by_id_fkey</code> key
+     */
+    public LkRecipeTypePath lkRecipeTypeUpdatedByIdFkey() {
+        if (_lkRecipeTypeUpdatedByIdFkey == null)
+            _lkRecipeTypeUpdatedByIdFkey = new LkRecipeTypePath(this, null, Keys.LK_RECIPE_TYPE__LK_RECIPE_TYPE_UPDATED_BY_ID_FKEY.getInverseKey());
+
+        return _lkRecipeTypeUpdatedByIdFkey;
+    }
+
+    private transient RecipePath _recipeCreatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.recipe</code>
+     * table, via the <code>recipe_created_by_id_fkey</code> key
+     */
+    public RecipePath recipeCreatedByIdFkey() {
+        if (_recipeCreatedByIdFkey == null)
+            _recipeCreatedByIdFkey = new RecipePath(this, null, Keys.RECIPE__RECIPE_CREATED_BY_ID_FKEY.getInverseKey());
+
+        return _recipeCreatedByIdFkey;
+    }
+
+    private transient RecipeIngredientPath _recipeIngredientCreatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.recipe_ingredient</code> table, via the
+     * <code>recipe_ingredient_created_by_id_fkey</code> key
+     */
+    public RecipeIngredientPath recipeIngredientCreatedByIdFkey() {
+        if (_recipeIngredientCreatedByIdFkey == null)
+            _recipeIngredientCreatedByIdFkey = new RecipeIngredientPath(this, null, Keys.RECIPE_INGREDIENT__RECIPE_INGREDIENT_CREATED_BY_ID_FKEY.getInverseKey());
+
+        return _recipeIngredientCreatedByIdFkey;
+    }
+
+    private transient RecipeIngredientPath _recipeIngredientUpdatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.recipe_ingredient</code> table, via the
+     * <code>recipe_ingredient_updated_by_id_fkey</code> key
+     */
+    public RecipeIngredientPath recipeIngredientUpdatedByIdFkey() {
+        if (_recipeIngredientUpdatedByIdFkey == null)
+            _recipeIngredientUpdatedByIdFkey = new RecipeIngredientPath(this, null, Keys.RECIPE_INGREDIENT__RECIPE_INGREDIENT_UPDATED_BY_ID_FKEY.getInverseKey());
+
+        return _recipeIngredientUpdatedByIdFkey;
+    }
+
+    private transient RecipeStepPath _recipeStepCreatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.recipe_step</code>
+     * table, via the <code>recipe_step_created_by_id_fkey</code> key
+     */
+    public RecipeStepPath recipeStepCreatedByIdFkey() {
+        if (_recipeStepCreatedByIdFkey == null)
+            _recipeStepCreatedByIdFkey = new RecipeStepPath(this, null, Keys.RECIPE_STEP__RECIPE_STEP_CREATED_BY_ID_FKEY.getInverseKey());
+
+        return _recipeStepCreatedByIdFkey;
+    }
+
+    private transient RecipeStepPath _recipeStepUpdatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.recipe_step</code>
+     * table, via the <code>recipe_step_updated_by_id_fkey</code> key
+     */
+    public RecipeStepPath recipeStepUpdatedByIdFkey() {
+        if (_recipeStepUpdatedByIdFkey == null)
+            _recipeStepUpdatedByIdFkey = new RecipeStepPath(this, null, Keys.RECIPE_STEP__RECIPE_STEP_UPDATED_BY_ID_FKEY.getInverseKey());
+
+        return _recipeStepUpdatedByIdFkey;
+    }
+
+    private transient RecipePath _recipeUpdatedByIdFkey;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.recipe</code>
+     * table, via the <code>recipe_updated_by_id_fkey</code> key
+     */
+    public RecipePath recipeUpdatedByIdFkey() {
+        if (_recipeUpdatedByIdFkey == null)
+            _recipeUpdatedByIdFkey = new RecipePath(this, null, Keys.RECIPE__RECIPE_UPDATED_BY_ID_FKEY.getInverseKey());
+
+        return _recipeUpdatedByIdFkey;
     }
 
     @Override

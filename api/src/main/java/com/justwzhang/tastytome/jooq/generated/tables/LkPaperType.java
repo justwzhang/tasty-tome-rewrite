@@ -6,15 +6,23 @@ package com.justwzhang.tastytome.jooq.generated.tables;
 
 import com.justwzhang.tastytome.jooq.generated.Keys;
 import com.justwzhang.tastytome.jooq.generated.Public;
+import com.justwzhang.tastytome.jooq.generated.tables.User.UserPath;
 import com.justwzhang.tastytome.jooq.generated.tables.records.LkPaperTypeRecord;
 
+import java.time.OffsetDateTime;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.jooq.Condition;
 import org.jooq.Field;
+import org.jooq.ForeignKey;
+import org.jooq.InverseForeignKey;
 import org.jooq.Name;
+import org.jooq.Path;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
+import org.jooq.Record;
 import org.jooq.SQL;
 import org.jooq.Schema;
 import org.jooq.Stringly;
@@ -65,6 +73,26 @@ public class LkPaperType extends TableImpl<LkPaperTypeRecord> {
      */
     public final TableField<LkPaperTypeRecord, String> SHORT_LABEL = createField(DSL.name("short_label"), SQLDataType.VARCHAR(50), this, "");
 
+    /**
+     * The column <code>public.lk_paper_type.create_date</code>.
+     */
+    public final TableField<LkPaperTypeRecord, OffsetDateTime> CREATE_DATE = createField(DSL.name("create_date"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+
+    /**
+     * The column <code>public.lk_paper_type.update_date</code>.
+     */
+    public final TableField<LkPaperTypeRecord, OffsetDateTime> UPDATE_DATE = createField(DSL.name("update_date"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+
+    /**
+     * The column <code>public.lk_paper_type.created_by_id</code>.
+     */
+    public final TableField<LkPaperTypeRecord, Long> CREATED_BY_ID = createField(DSL.name("created_by_id"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>public.lk_paper_type.updated_by_id</code>.
+     */
+    public final TableField<LkPaperTypeRecord, Long> UPDATED_BY_ID = createField(DSL.name("updated_by_id"), SQLDataType.BIGINT, this, "");
+
     private LkPaperType(Name alias, Table<LkPaperTypeRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }
@@ -94,6 +122,39 @@ public class LkPaperType extends TableImpl<LkPaperTypeRecord> {
         this(DSL.name("lk_paper_type"), null);
     }
 
+    public <O extends Record> LkPaperType(Table<O> path, ForeignKey<O, LkPaperTypeRecord> childPath, InverseForeignKey<O, LkPaperTypeRecord> parentPath) {
+        super(path, childPath, parentPath, LK_PAPER_TYPE);
+    }
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    public static class LkPaperTypePath extends LkPaperType implements Path<LkPaperTypeRecord> {
+
+        private static final long serialVersionUID = 1L;
+        public <O extends Record> LkPaperTypePath(Table<O> path, ForeignKey<O, LkPaperTypeRecord> childPath, InverseForeignKey<O, LkPaperTypeRecord> parentPath) {
+            super(path, childPath, parentPath);
+        }
+        private LkPaperTypePath(Name alias, Table<LkPaperTypeRecord> aliased) {
+            super(alias, aliased);
+        }
+
+        @Override
+        public LkPaperTypePath as(String alias) {
+            return new LkPaperTypePath(DSL.name(alias), this);
+        }
+
+        @Override
+        public LkPaperTypePath as(Name alias) {
+            return new LkPaperTypePath(alias, this);
+        }
+
+        @Override
+        public LkPaperTypePath as(Table<?> alias) {
+            return new LkPaperTypePath(alias.getQualifiedName(), this);
+        }
+    }
+
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
@@ -102,6 +163,37 @@ public class LkPaperType extends TableImpl<LkPaperTypeRecord> {
     @Override
     public UniqueKey<LkPaperTypeRecord> getPrimaryKey() {
         return Keys.LK_PAPER_TYPE_PKEY;
+    }
+
+    @Override
+    public List<ForeignKey<LkPaperTypeRecord, ?>> getReferences() {
+        return Arrays.asList(Keys.LK_PAPER_TYPE__LK_PAPER_TYPE_CREATED_BY_ID_FKEY, Keys.LK_PAPER_TYPE__LK_PAPER_TYPE_UPDATED_BY_ID_FKEY);
+    }
+
+    private transient UserPath _lkPaperTypeCreatedByIdFkey;
+
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>lk_paper_type_created_by_id_fkey</code> key.
+     */
+    public UserPath lkPaperTypeCreatedByIdFkey() {
+        if (_lkPaperTypeCreatedByIdFkey == null)
+            _lkPaperTypeCreatedByIdFkey = new UserPath(this, Keys.LK_PAPER_TYPE__LK_PAPER_TYPE_CREATED_BY_ID_FKEY, null);
+
+        return _lkPaperTypeCreatedByIdFkey;
+    }
+
+    private transient UserPath _lkPaperTypeUpdatedByIdFkey;
+
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>lk_paper_type_updated_by_id_fkey</code> key.
+     */
+    public UserPath lkPaperTypeUpdatedByIdFkey() {
+        if (_lkPaperTypeUpdatedByIdFkey == null)
+            _lkPaperTypeUpdatedByIdFkey = new UserPath(this, Keys.LK_PAPER_TYPE__LK_PAPER_TYPE_UPDATED_BY_ID_FKEY, null);
+
+        return _lkPaperTypeUpdatedByIdFkey;
     }
 
     @Override
