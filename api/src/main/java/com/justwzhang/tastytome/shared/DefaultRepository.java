@@ -27,7 +27,10 @@ public class DefaultRepository<R extends Record, M> extends BaseRepository<R, M,
 
 
     private Optional<Field<Long>> findIdField(){
-        return Arrays.stream(this.table.fields()).filter(field ->field.getDataType().isNumeric()).filter(field->field.getName().endsWith("_id")).map(field->(Field<Long>)field).findFirst();
+        return Arrays.stream(this.table.fields())
+            .filter(field ->field.getDataType().isNumeric())
+            .filter(field->field.getName().endsWith("_id"))
+            .map(field->(Field<Long>)field).findFirst();
     }
     @Override
     public Field<Long> getIdField() {

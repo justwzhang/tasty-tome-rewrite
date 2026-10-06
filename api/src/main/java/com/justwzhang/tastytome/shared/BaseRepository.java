@@ -44,15 +44,25 @@ public abstract class BaseRepository <R extends Record, M, ID> implements CrudRe
 
     @Override
     public List<M> list() {
-        return ctx.select(defaultSelect()).from(table).where(defaultWhere()).fetchInto(modelClass);
+        return ctx.select(defaultSelect())
+            .from(table)
+            .where(defaultWhere())
+            .fetchInto(modelClass);
     }
     @Override
     public List<M> list(Condition condition){
-        return ctx.select(defaultSelect()).from(table).where(defaultWhere()).and(condition).fetchInto(modelClass);
+        return ctx.select(defaultSelect())
+            .from(table)
+            .where(defaultWhere())
+            .and(condition)
+            .fetchInto(modelClass);
     }
     @Override
     public Optional<M> get(ID id) {
-        return Optional.ofNullable(ctx.select(defaultSelect()).from(table).where(defaultWhere()).and(getIdField().eq(id)).fetchOneInto(modelClass));
+        return Optional.ofNullable(ctx.select(defaultSelect())
+            .from(table).where(defaultWhere())
+            .and(getIdField().eq(id))
+            .fetchOneInto(modelClass));
     }
     @Override 
     public Optional<M> get(ID id, Condition condition){
