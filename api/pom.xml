@@ -135,7 +135,7 @@
 						</generate>
 						<target>
 							<packageName>com.justwzhang.tastytome.jooq.generated</packageName>
-							<directory>src/main/java</directory>
+							<directory>src/generated/jooq</directory>
 						</target>
 					</generator>
 				</configuration>
@@ -148,6 +148,17 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<sourcePaths>
+						<sourcePath>src/main/java</sourcePath>
+						<sourcePath>src/generated/jooq</sourcePath>
+					</sourcePaths>
+				</configuration>
 			</plugin>
         </plugins>
     </build>
