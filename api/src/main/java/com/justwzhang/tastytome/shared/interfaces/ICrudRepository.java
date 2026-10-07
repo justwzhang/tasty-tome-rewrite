@@ -12,7 +12,7 @@ import org.jooq.Condition;
  * @param <M> The Model Class
  * @param <ID> The id type for the class, most cases are Long
  */
-public interface CrudRepository<R, M, ID> {
+public interface ICrudRepository<R, M, ID> {
     public List<M> list();
     public List<M> list(Condition condition);
 

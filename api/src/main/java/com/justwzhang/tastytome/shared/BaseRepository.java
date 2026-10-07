@@ -11,7 +11,7 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
 
-import com.justwzhang.tastytome.shared.interfaces.CrudRepository;
+import com.justwzhang.tastytome.shared.interfaces.ICrudRepository;
 
 /**
  * 
@@ -20,7 +20,7 @@ import com.justwzhang.tastytome.shared.interfaces.CrudRepository;
  * @param <M> The Model Class
  * @param <ID> The id type for the class, most cases are Long
  */
-public abstract class BaseRepository <R extends Record, M, ID> implements CrudRepository<R, M, ID>{
+public abstract class BaseRepository <R extends Record, M, ID> implements ICrudRepository<R, M, ID>{
 
     private final DSLContext ctx;
     final Table<R> table;
