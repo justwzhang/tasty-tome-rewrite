@@ -6,16 +6,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.justwzhang.tastytome.components.user.model.User;
+import com.justwzhang.tastytome.components.user.service.UserService;
+
 @RestController
 @RequestMapping("user")
 public class UserController {
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("/test")
     public String test(){
         return "Hello World user";
     }
     @GetMapping("/me")
-    public String me(@AuthenticationPrincipal Jwt jwt) {
-        return "Hello " + jwt.getClaimAsString("preferred_username");
+    public User me(@AuthenticationPrincipal Jwt jwt) {
+        return userService.getOrCreateCurrentUser(jwt);
     }
 }
