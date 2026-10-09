@@ -26,11 +26,20 @@ public class UserService {
 
         String email = requiredClaim(jwt, "email");
         Optional<User> existingUser = userRepository.findByEmail(email);
-        User user = existingUser.orElseGet(() -> userRepository.createIfMissingByEmail(
-            email,
-            requiredClaim(jwt, "given_name"),
-            requiredClaim(jwt, "family_name")));
+        User user = existingUser.orElseGet(() -> createUserFromNameClaim(jwt, email));
         return user;
+    }
+
+    private User createUserFromNameClaim(Jwt jwt, String email) {
+        String fullName = requiredClaim(jwt, "name").trim();
+        String[] nameParts = fullName.split("\\s+", 2);
+        if (nameParts.length != 2 || nameParts[1].isBlank()) {
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN,
+                "JWT 'name' claim must contain first and last names separated by a space");
+        }
+
+        return userRepository.createIfMissingByEmail(email, nameParts[0], nameParts[1].trim());
     }
 
     private String requiredClaim(Jwt jwt, String claimName) {

@@ -1,23 +1,22 @@
 package com.justwzhang.tastytome.components.user.service;
 
+import java.time.Instant;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
-
-import java.time.Instant;
-import java.util.Optional;
-
-import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.justwzhang.tastytome.components.user.model.UserResponse;
+import com.justwzhang.tastytome.components.user.model.User;
 import com.justwzhang.tastytome.components.user.repository.UserRepository;
-import com.justwzhang.tastytome.jooq.generated.tables.pojos.User;
 
 class UserServiceTests {
 
@@ -26,59 +25,51 @@ class UserServiceTests {
 
     @Test
     void returnsAnExistingUserUsingOnlyTheJwtEmail() {
-        Jwt jwt = jwt("person@example.com", null, null);
-        User user = new User()
-            .setUserId(42L)
-            .setFirstName("Taylor")
-            .setLastName("Person")
-            .setEmail("person@example.com");
+        Jwt jwt = jwt("person@example.com", null);
+        User user = mock(User.class);
         when(userRepository.findByEmail("person@example.com")).thenReturn(Optional.of(user));
 
-        UserResponse response = userService.getOrCreateCurrentUser(jwt);
+        User response = userService.getOrCreateCurrentUser(jwt);
 
-        assertEquals(new UserResponse(42L, "Taylor", "Person", "person@example.com"), response);
+        assertSame(user, response);
         verify(userRepository).findByEmail("person@example.com");
     }
 
     @Test
     void createsAUserWhenEmailIsNotFound() {
-        Jwt jwt = jwt("person@example.com", "Taylor", "Person");
-        User user = new User()
-            .setUserId(42L)
-            .setFirstName("Taylor")
-            .setLastName("Person")
-            .setEmail("person@example.com");
+        Jwt jwt = jwt("person@example.com", "Justin Zhang Lee");
+        User user = mock(User.class);
         when(userRepository.findByEmail("person@example.com")).thenReturn(Optional.empty());
-        when(userRepository.createIfMissingByEmail("person@example.com", "Taylor", "Person"))
+        when(userRepository.createIfMissingByEmail("person@example.com", "Justin", "Zhang Lee"))
             .thenReturn(user);
 
-        UserResponse response = userService.getOrCreateCurrentUser(jwt);
+        User response = userService.getOrCreateCurrentUser(jwt);
 
-        assertEquals(new UserResponse(42L, "Taylor", "Person", "person@example.com"), response);
-        verify(userRepository).createIfMissingByEmail("person@example.com", "Taylor", "Person");
+        assertSame(user, response);
+        verify(userRepository).createIfMissingByEmail("person@example.com", "Justin", "Zhang Lee");
     }
 
     @Test
     void rejectsMissingOrBlankEmailBeforeRepositoryAccess() {
         ResponseStatusException exception = assertThrows(
             ResponseStatusException.class,
-            () -> userService.getOrCreateCurrentUser(jwt(" ", "Taylor", "Person")));
+            () -> userService.getOrCreateCurrentUser(jwt(" ", "Taylor Person")));
 
         assertEquals(HttpStatus.FORBIDDEN, exception.getStatusCode());
         verifyNoInteractions(userRepository);
     }
 
     @Test
-    void rejectsMissingNameClaimsBeforeRepositoryAccess() {
+    void rejectsNameClaimWithoutAFirstAndLastNameBeforeCreatingUser() {
         ResponseStatusException exception = assertThrows(
             ResponseStatusException.class,
-            () -> userService.getOrCreateCurrentUser(jwt("person@example.com", "Taylor", null)));
+            () -> userService.getOrCreateCurrentUser(jwt("person@example.com", "Justin")));
 
         assertEquals(HttpStatus.FORBIDDEN, exception.getStatusCode());
         verify(userRepository).findByEmail("person@example.com");
     }
 
-    private Jwt jwt(String email, String givenName, String familyName) {
+    private Jwt jwt(String email, String name) {
         Jwt.Builder builder = Jwt.withTokenValue("test-token")
             .header("alg", "none")
             .issuedAt(Instant.now())
@@ -86,11 +77,8 @@ class UserServiceTests {
         if (email != null) {
             builder.claim("email", email);
         }
-        if (givenName != null) {
-            builder.claim("given_name", givenName);
-        }
-        if (familyName != null) {
-            builder.claim("family_name", familyName);
+        if (name != null) {
+            builder.claim("name", name);
         }
         return builder.build();
     }
